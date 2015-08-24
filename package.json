@@ -1,0 +1,29 @@
+{
+  "name": "Toolbox",
+  "version": "1.0.0",
+  "description": "Toolbox of processes for DCT",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thehappycactus/Toolbox.git"
+  },
+  "author": "Mary Gezo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thehappycactus/Toolbox/issues"
+  },
+  "homepage": "https://github.com/thehappycactus/Toolbox",
+  "devDependencies": {
+    "angular": "^1.4.4",
+    "angular-resource": "^1.4.4",
+    "bootstrap": "^3.3.5",
+    "express": "^4.13.3",
+    "gulp": "^3.9.0",
+    "gulp-copy": "0.0.2",
+    "jquery": "^2.1.4",
+    "ladda": "^0.9.8"
+  }
+}

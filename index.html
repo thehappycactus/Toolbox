@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html ng-app="DCToolbox">
+	<head>
+		<title>DCToolbox</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="css/bootstrap-theme.min.css" />
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" href="css/ladda-themeless.min.css" />
+		<link rel="stylesheet" href="css/main.css" />
+	</head>
+
+	<body class="container-fluid" ng-controller="TemplateControl as tControl">
+		<div class="row">
+			<div class="col-md-12">
+				<h1>DCToolbox</h1>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-12 text-center">
+				<h2>Template Maker</h2>
+				<h3>Step 1: Upload</h3>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-md-2">
+				Subjects:
+				<form>
+					<input id="subjectFile" type="file">
+				</form>
+			</div>
+			<div class="col-md-2">
+				Salutations:
+				<form>
+					<input id="saluFile" type="file">
+				</form>
+			</div>
+			<div class="col-md-2">
+				Introduction:
+				<form>
+					<input id="introFile" type="file">
+				</form>
+			</div>
+			<div class="col-md-2">
+				Body:
+				<form>
+					<input id="bodyFile" type="file">
+				</form>
+			</div>
+			<div class="col-md-2">
+				Sign-Off:
+				<form>
+					<input id="signOffFile" type="file">
+				</form>
+			</div>
+			<div class="col-md-1"></div>
+		</div>
+		<div class="row">
+			<div class="col-md-12 text-center isolate">
+				<button class="btn btn-primary btn-lg" ng-click="tControl.upload()">Upload All Text</button>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-md-2">
+				<ul>
+					<li ng-repeat="subject in tControl.subjectList">
+						"{{subject}}"
+					</li>
+				</ul>
+			</div>
+			<div class="col-md-2">
+				<ul>
+					<li ng-repeat="salutation in tControl.salutationList">
+						"{{salutation}}"
+					</li>
+				</ul>
+			</div>
+			<div class="col-md-2">
+				<ul>
+					<li ng-repeat="intro in tControl.introList">
+						"{{intro}}"
+					</li>
+				</ul>
+			</div>
+			<div class="col-md-2">
+				<ul>
+					<li ng-repeat="body in tControl.bodyList">
+						"{{body}}"
+					</li>
+				</ul>
+			</div>
+			<div class="col-md-2">
+				<ul>
+					<li ng-repeat="signoff in tControl.signOffList">
+						"{{signoff}}"
+					</li>
+				</ul>
+			</div>
+			<div class="col-md-1"></div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-12 text-center isolate">
+				<h3>Step 2: Create Templates</h3>
+				<button class="btn btn-primary btn-lg" ng-click="tControl.createTemplates()">Create All Templates</button>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-12 text-center isolate">
+				<h3>Step 3: Download Templates</h3>
+				<button class="btn btn-primary btn-lg" ng-click="">Download All Templates</button>
+			</div>
+		</div>
+	</body>
+
+<!-- #00192D DCT Dark Blue -->
+	<script type="text/javascript" src="js/lib/angular.min.js"></script>
+	<script type="text/javascript" src="js/lib/angular-resource.min.js"></script>
+	<script type="text/javascript" src="js/lib/jquery.min.js"></script>
+	<script type="text/javascript" src="js/lib/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/lib/ladda.min.js"></script>
+	<script type="text/javascript" src="js/lib/spin.min.js"></script>
+	<script type="text/javascript" src="js/index.js"></script>
+	<script type="text/javascript" src="js/controllers/TemplateControl.js"></script>
+	<script type="text/javascript" src="js/EmailTemplate.js"></script>
+</html>
