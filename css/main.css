@@ -1,3 +1,27 @@
 .isolate {
 	padding: 30px;
 }
+
+.brand-img {
+	height: 100%;
+}
+
+.navbar-brand>img {
+	display: inline-block;
+}
+
+.navbar-brand {
+	padding: 5px;
+}
+
+.section {
+	height: 70vh;
+}
+
+.tree-text {
+	font-size: .8em;
+}
+
+.list-group-item {
+	padding: 10px 5px;
+}

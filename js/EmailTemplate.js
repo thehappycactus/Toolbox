@@ -5,34 +5,24 @@ angular
 function EmailTemplate () {
 	var vm = this;
 
-	vm.EmailTemplate = function (templData) {
-		if (templData) {
-			vm.subject = templData.subject;
-			vm.salutation = templData.salutation;
-			vm.intro = templData.intro;
-			vm.body = templData.body;
-			vm.signOff = templData.signOff;
-		}
+	var EmailTemplate = function (_subject, _salutation, _intro, _body, _signOff) {
+		this.subject = _subject;
+		this.salutation = _salutation;
+		this.intro = _intro;
+		this.body= _body;
+		this.signOff = _signOff;
+	};
 
-		vm.setData = function(data) {
-			vm.subject = data.subject;
-			vm.salutation = data.salutation;
-			vm.intro = data.intro;
-			vm.body = data.body;
-			vm.signOff = data.signOff;
-		}
+	EmailTemplate.prototype.createEmail = function () {
+		var finalEmail = 
+			this.subject + '\n\n' + 
+			this.salutation + '\n\n' + 
+			this.intro + '\n\n' + 
+			this.body + '\n\n' +
+			this.signOff;
 
-		vm.createEmail = function () {
-			var finalEmail = 
-				vm.subject + '\n\n' + 
-				vm.salutation + '\n\n' + 
-				vm.intro + '\n\n' + 
-				vm.body + '\n\n' +
-				vm.signOff;
-
-			return finalEmail;
-		};
+		return finalEmail;
 	}
-
-	return vm;
+	
+	return EmailTemplate;
 }
