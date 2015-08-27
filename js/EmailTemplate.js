@@ -5,11 +5,12 @@ angular
 function EmailTemplate () {
 	var vm = this;
 
-	var EmailTemplate = function (_subject, _salutation, _intro, _body, _signOff) {
+	var EmailTemplate = function (_subject, _salutation, _intro, _paraA, _paraB, _signOff) {
 		this.subject = _subject;
 		this.salutation = _salutation;
 		this.intro = _intro;
-		this.body= _body;
+		this.paraA = _paraA;
+		this.paraB = _paraB
 		this.signOff = _signOff;
 	};
 
@@ -18,8 +19,10 @@ function EmailTemplate () {
 			this.subject + '\n\n' + 
 			this.salutation + '\n\n' + 
 			this.intro + '\n\n' + 
-			this.body + '\n\n' +
-			this.signOff;
+			this.paraA + '\n\n' +
+			this.paraB + '\n\n' +
+			this.signOff + '\n' +
+			'-----';
 
 		return finalEmail;
 	}

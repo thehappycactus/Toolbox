@@ -7,33 +7,32 @@ function TemplateControl (EmailTemplate) {
 	vm.subjectList = null;
 	vm.salutationList = null;
 	vm.introList = null;
-	vm.bodyList = null;
+	vm.paraAList = null;
+	vm.paraBList = null;
 	vm.signOffList = null;
 
 	vm.emailArr = new Array();
 
 	vm.listIdx = 0;
 
-	vm.treeSetup = function () {
-		$('.tree').treeview({
-			data: []
-		});
-	}
-
 	vm.upload = function () {
+		// var ladda = Ladda.create(document.querySelector('#btnUpload'));
+		// ladda.start();
 		// Check for the various File API support.
 		if (window.File && window.FileReader && window.FileList && window.Blob) {
 		  // Great success! All the File APIs are supported.
 		} else {
 		  alert('The File APIs are not fully supported in this browser.');
+		  // ladda.stop();
 		}
 
 		var subjectFile = document.getElementById('subjectFile').files[0];
 		var saluFile = document.getElementById('saluFile').files[0];
 		var introFile = document.getElementById('introFile').files[0];
-		var bodyFile = document.getElementById('bodyFile').files[0];
+		var paraAFile = document.getElementById('paraAFile').files[0];
+		var paraBFile = document.getElementById('paraBFile').files[0];
 		var signOffFile = document.getElementById('signOffFile').files[0];
-		var uploadArr = [ subjectFile, saluFile, introFile, bodyFile, signOffFile ];
+		var uploadArr = [ subjectFile, saluFile, introFile, paraAFile, paraBFile, signOffFile ];
 
 		var j = 0;
 		for (var i = 0; i < uploadArr.length; i++) {
@@ -71,15 +70,25 @@ function TemplateControl (EmailTemplate) {
 					break;
 				case 3:
 					fr.onloadend = function (e) { 
-						vm.bodyList = e.target.result.split('\n'); 
+						vm.paraAList = e.target.result.split('\n'); 
 						var tempList = new Array()
-						for (var k = 0; k < vm.bodyList.length; k++) {
-							tempList[k] = { text: vm.bodyList[k], icon: 'glyphicon glyphicon-play' };
+						for (var k = 0; k < vm.paraAList.length; k++) {
+							tempList[k] = { text: vm.paraAList[k], icon: 'glyphicon glyphicon-play' };
 						}	
-						$('#bodyTree').treeview({ data: tempList });
+						$('#paraATree').treeview({ data: tempList });
 					};
 					break;
 				case 4:
+					fr.onloadend = function (e) { 
+						vm.paraBList = e.target.result.split('\n'); 
+						var tempList = new Array()
+						for (var k = 0; k < vm.paraBList.length; k++) {
+							tempList[k] = { text: vm.paraBList[k], icon: 'glyphicon glyphicon-play' };
+						}	
+						$('#paraBTree').treeview({ data: tempList });
+					};
+					break;
+				case 5:
 					fr.onloadend = function (e) { 
 						vm.signOffList = e.target.result.split('\n'); 
 						var tempList = new Array()
@@ -95,15 +104,19 @@ function TemplateControl (EmailTemplate) {
 
 			fr.readAsText(uploadArr[i]);
 		}
+
+		// ladda.stop();		// This isn't quite right, but will do for now.
 	};
 
 	vm.createTemplates = function () {
 		var nodeTree = new Array();
+		// var ladda = Ladda.create(document.querySelector('#btnCreate'));
+		// ladda.start();
 
 		for (var i = 0; i < vm.subjectList.length; i++) {
 			nodeTree.push({
 				text: vm.subjectList[i],
-				// selectedIcon: 'glyphicon glyphicon-ok',
+				selectedIcon: 'glyphicon glyphicon-ok',
 				selectable: true,
 				state: {
 					checked: true
@@ -124,30 +137,38 @@ function TemplateControl (EmailTemplate) {
 						selectable: true,
 						nodes: new Array()
 					});
-					for (var l = 0; l < vm.bodyList.length; l ++) {
+					for (var l = 0; l < vm.paraAList.length; l ++) {
 						nodeTree[i].nodes[j].nodes[k].nodes.push({
-							text: vm.bodyList[l],
+							text: vm.paraAList[l],
 							selectedIcon: 'glyphicon glyphicon-ok',
 							selectable: true,
 							nodes: new Array()
 						});
-						for (var m = 0; m < vm.signOffList.length; m++) {
+						for (var m = 0; m < vm.paraBList.length; m++) {
 							nodeTree[i].nodes[j].nodes[k].nodes[l].nodes.push({
-								text: vm.signOffList[m],
+								text: vm.paraBList[m],
 								selectedIcon: 'glyphicon glyphicon-ok',
 								selectable: true,
+								nodes: new Array()
 							});
+							for (var n = 0; n < vm.signOffList.length; n++) {
+								nodeTree[i].nodes[j].nodes[k].nodes[l].nodes[m].nodes.push({
+									text: vm.signOffList[m],
+									selectedIcon: 'glyphicon glyphicon-ok',
+									selectable: true,
+								});
 
-							var newEmail = new EmailTemplate(
-								vm.subjectList[i],
-								vm.salutationList[j],
-								vm.introList[k],
-								vm.bodyList[l],
-								vm.signOffList[m]
-							);
+								var newEmail = new EmailTemplate(
+									vm.subjectList[i],
+									vm.salutationList[j],
+									vm.introList[k],
+									vm.paraAList[l],
+									vm.paraBList[m],
+									vm.signOffList[n]
+								);
 
-							vm.emailArr.push(newEmail);
-
+								vm.emailArr.push(newEmail);
+							}
 						}
 					}
 				}
@@ -156,8 +177,11 @@ function TemplateControl (EmailTemplate) {
 
 		$('#emailTree').treeview({
 			data: nodeTree,
+			levels: 1,
 			multiselect: true,
 		});
+
+		// ladda.stop();
 
 		console.log(vm.emailArr.length + ' templates were created.');
 	}
