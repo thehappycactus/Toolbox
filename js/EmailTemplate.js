@@ -3,9 +3,10 @@ angular
 	.factory('EmailTemplate', EmailTemplate);
 
 function EmailTemplate () {
-	var vm = this;
+	this.topLevel = 0;
 
-	var EmailTemplate = function (_subject, _salutation, _intro, _paraA, _paraB, _signOff) {
+	var EmailTemplate = function (_topLevel, _subject, _salutation, _intro, _paraA, _paraB, _signOff) {
+		this.topLevel = _topLevel;
 		this.subject = _subject;
 		this.salutation = _salutation;
 		this.intro = _intro;

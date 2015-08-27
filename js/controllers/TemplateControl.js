@@ -118,9 +118,7 @@ function TemplateControl (EmailTemplate) {
 				text: vm.subjectList[i],
 				selectedIcon: 'glyphicon glyphicon-ok',
 				selectable: true,
-				state: {
-					checked: true
-				},
+				state: { checked: true },
 				nodes: new Array()
 			});
 			for (var j = 0; j < vm.salutationList.length; j++) {
@@ -159,6 +157,7 @@ function TemplateControl (EmailTemplate) {
 								});
 
 								var newEmail = new EmailTemplate(
+									i,
 									vm.subjectList[i],
 									vm.salutationList[j],
 									vm.introList[k],
@@ -195,6 +194,34 @@ function TemplateControl (EmailTemplate) {
 		var emailBlob = new Blob([allEmails], { type: 'text/plain' });
 		var dlLink = window.URL.createObjectURL(emailBlob);
 		window.open(dlLink, '_blank');
+	}
+
+	vm.downloadSelected = function() {
+		var selectedEmails = '';
+		var leadNodes = $('#emailTree li');
+		var selectedIdx = 0;
+
+		for (var i = 0; i < leadNodes.length; i ++) {
+			if ($(leadNodes[i]).hasClass('node-selected')) {
+				selectedIdx = i;
+				break;			// Right now only 1 item can be selected
+			}
+		}
+
+		var selectedCounter = 0;
+		for (var j = 0; j < vm.emailArr.length; j ++) {
+			if (vm.emailArr[j].topLevel === selectedIdx) {
+				selectedEmails += vm.emailArr[j].createEmail() + '\n\n';
+				selectedCounter++;
+			}
+		}
+
+		console.log(selectedCounter + ' templates were selected.');
+
+		var emailBlob = new Blob([selectedEmails], { type: 'text/plain' });
+		var dlLink = window.URL.createObjectURL(emailBlob);
+		window.open(dlLink, '_blank');
+
 	}
 
 }
