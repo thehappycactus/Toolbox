@@ -1,0 +1,114 @@
+<div ng-controller="TemplateControl as tControl">
+	<div class="section">
+		<div class="page-header">
+			<h1>Template Maker <small>Generates email templates for marketing testing</small></h1>
+		</div>
+
+		<div class="row">
+			<div class="col-md-12 text-center">
+				<h3>Step 1: Upload</h3>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-2">
+				<form>
+					<label for="subjectFile">Subjects:</label>
+					<input id="subjectFile" type="file">
+				</form>
+			</div>
+			<div class="col-md-2">
+				<form>
+					<label for="saluFile">Salutations:</label>
+					<input id="saluFile" type="file">
+				</form>
+			</div>
+			<div class="col-md-2">
+				<form>
+					<label for="introFile">Introduction:</label>
+					<input id="introFile" type="file">
+				</form>
+			</div>
+			<div class="col-md-2">
+				<form>
+					<label for="paraAFile">Paragraph A:</label>
+					<input id="paraAFile" type="file">
+				</form>
+			</div>
+			<div class="col-md-2">
+				<form>
+					<label for="paraBFile">Paragraph B:</label>
+					<input id="paraBFile" type="file">
+				</form>
+			</div>
+			<div class="col-md-2">
+				<form>
+					<label for="signOffFile">Sign-Off:</label>
+					<input id="signOffFile" type="file">
+				</form>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12 text-center isolate">
+				<button id="btnUpload" 
+					class="btn btn-primary btn-lg ladda-button" 
+					data-style="zoom-in"
+					ng-click="tControl.upload()">
+						<span class="ladda-label">Upload All Text</span>
+				</button>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-2">
+				<div id="subjectTree" class="tree tree-text"></div>
+			</div>
+			<div class="col-md-2">
+				<div id="saluTree" class="tree tree-text"></div>
+			</div>
+			<div class="col-md-2">
+				<div id="introTree" class="tree tree-text"></div>
+			</div>
+			<div class="col-md-2">
+				<div id="paraATree" class="tree tree-text"></div>
+			</div>
+			<div class="col-md-2">
+				<div id="paraBTree" class="tree tree-text"></div>
+			</div>
+			<div class="col-md-2">
+				<div id="signOffTree" class="tree tree-text"></div>
+			</div>
+		</div>
+	</div>
+	<div class="section">
+		<div class="row">
+			<div class="col-md-12 text-center isolate">
+				<h3>Step 2: Create Templates</h3>
+				<button id="btnCreate" 
+					class="btn btn-primary btn-lg ladda-button" 
+					data-style="zoom-in"
+					ng-click="tControl.createTemplates()">
+						<span class="ladda-label">Create All Templates</span>
+				</button>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-md-10">
+				<h4 class="text-center">Total Template Count:</h4>
+				<div id="emailTree" class="tree tree-text"></div>
+			</div>
+			<div class="col-md-1"></div>
+		</div>
+	</div>
+
+	<div class="section">
+		<div class="row">
+			<div class="col-md-12 text-center isolate">
+				<h3>Step 3: Download Templates</h3>
+				<button class="btn btn-primary btn-lg" ng-click="tControl.downloadSelected()">Download Selected</button>
+				<button class="btn btn-primary btn-lg" ng-click="tControl.downloadAll()">Download All</button>
+			</div>
+		</div>
+	</div>
+</div>
