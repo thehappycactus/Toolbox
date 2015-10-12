@@ -8,13 +8,17 @@
 	function Batch($resource) {
 		return $resource(
 			'http://dctapi-dev.elasticbeanstalk.com/matrix/batches/:batch_id',
-			{ batch_id: '@batch_id' },
-			{ get: {
-				method: 'GET',
-				isArray: true
+			{ batch_id: '@id' },
+			{ 	get: {
+					method: 'GET',
+					isArray: true
 				},
 				post: {
 					method: 'POST',
+					isArray: false
+				},
+				put: {
+					method: 'PUT',
 					isArray: false
 				}
 			});

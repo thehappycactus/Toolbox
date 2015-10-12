@@ -5,7 +5,30 @@
 	<div class="row">
 		<div class="col-md-12">
 			<div class="page-header">
-				<h1>Test Matrix <small>Tracks A/B/n Email Marketing</small></h1>
+				<h1>Test Matrix <small>Tracks A/B/n Email Marketing v1.0</small></h1>
+			</div>
+			<p><button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#description-info">
+				Desription & How To Use <span class="caret"></span>
+			</button></p>
+			<div class="collapse" id="description-info">
+				<div class="well">
+					<dl>
+						<dt>Description</dt>
+						<dd>The Email Test Matrix is meant to track how we're A/B/n testing our marketing emails.  It currently only tracks basic open and click data, but it also gives us a place to describe what specifically we're trying to test and what sections of the population.  Future iterations will contain data visualization and data analysis.
+						</dd>
+					</dl>
+					<dl>
+						<dt>How To Use</dt>
+						<dd>
+							<ol>
+								<li>To start a new day of tests (Batch), click Add -> New Batch.</li>
+								<li>Enter all fields and click "Add Batch".</li>
+								<li>To add a new test (Batch Item), click Add -> New Batch Item.  By default it will add the new item to the most recent Batch.</li>
+								<li>Enter all fields and click "Add Batch Item".</li>
+							</ol>
+						</dd>
+					</dl>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -24,7 +47,7 @@
 		<div class="col-md-10"></div>
 		<div class="col-md-1">
 			<div class="btn-group" style="padding: 10px 0 10px 0;">
-				<button class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<button class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" disabled>
 					Sort By <span class="caret"></span>
 				</button>
 				<ul class="dropdown-menu">
@@ -50,6 +73,34 @@
 
 					<div id="collapse{{batch.Batch_ID}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{batch.Batch_ID}}">
 						<div class="panel-body">
+							<div class="row batchRow{{batch.Batch_ID}}">
+								<div class="col-md-1">
+									<button type="button" class="btn btn-default" role="button" ng-click="mc.openBatchView(batch)">
+										<span class="glyphicon glyphicon-pencil"></span>
+									</button>
+								</div>
+								<div class="col-md-2">
+									<dl>
+										<dt>Date</dt>
+										<dd id="displayDate">{{batch.Date}}</dd>
+										<dd id="editDate" class="hidden"><input type="date" class="form-control" value="batch.Date"></dd>
+									</dl>
+								</div>
+								<div class="col-md-4">
+									<dl>
+										<dt>Test Component</dt>
+										<dd id="displayDescription">{{batch.Test_Component}}</dd>
+										<dd id="editDescription" class="hidden"><input type="text" class="form-control" ng-model="batch.Test_Component"></dd>
+									</dl>
+								</div>
+								<div class="col-md-5">
+									<dl>
+										<dt>Notes</dt>
+										<dd id="displayNotes">{{batch.Description}}</dd>
+										<dd id="editNotes" class="hidden"><input type="text" class="form-control" ng-model="batch.Description"></dd>
+									</dl>
+								</div>
+							</div>
 							<table class="table">
 								<tr>
 									<th>A/B/n</th>
