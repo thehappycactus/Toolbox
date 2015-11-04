@@ -7,7 +7,7 @@
 
 	function MatrixControl(Batch, BatchItem) {
 		var vm = this;
-		vm.batches = null;
+		vm.batches = new Array();
 		vm.addItem = {};
 		vm.addBatch = {};
 		vm.curIdx = 0;
@@ -64,7 +64,7 @@
 
 		function addBatchItem() {
 			var batchItem = {
-				id: vm.batches[curIdx].Batch_ID,			// By default, add to the most recent/topmost batch
+				id: vm.batches[vm.curIdx].Batch_ID,			// By default, add to the most recent/topmost batch
 				abn: vm.addItem.abn,
 				description: vm.addItem.description,
 				sentNbr: vm.addItem.sentNbr,
@@ -73,10 +73,19 @@
 				bounceNbr: vm.addItem.bounceNbr
 			};
 
-			BatchItem.add(batchItem).$promise.then(
-				function (data) {
-					vm.batches[curIdx].Tests.push(data);
-				}, function (error) { });
+			if (vm.batches[vm.curIdx].Tests) {
+				BatchItem.post(batchItem).$promise.then(
+					function (data) {
+						vm.batches[vm.curIdx].Tests = data.Attributes.Tests;
+					}, function (error) { });
+			} else {
+				BatchItem.put(batchItem).$promise.then(
+					function (data) {
+						vm.batches[vm.curIdx].Tests = data.Attributes.Tests
+					}, function (error) { });
+			}
+			
+			
 		}
 
 		function createBatch() {
@@ -85,12 +94,18 @@
 			var batch = {
 				id: vm.batches.length,
 				date: formattedDate,
-				testComponent: vm.addBatch.testComponent
+				testComponent: vm.addBatch.testComponent,
+				description: vm.addBatch.description
 			};
 
 			Batch.put(batch).$promise.then(
 				function (data){
-					vm.batches.push(data);
+					vm.batches.splice(0, 0, {
+						Batch_ID: vm.batches.length,
+						Date: formattedDate,
+						Test_Component: vm.addBatch.testComponent,
+						Description: vm.addBatch.description
+					});
 				}, function (error) { });
 		}
 
@@ -101,12 +116,13 @@
 				id: batch.Batch_ID,
 				date: formattedDate,
 				testComponent: batch.Test_Component,
-				description: batch.Description
+				description: batch.Description,
+				notes: (batch.Notes) ? (batch.Notes) : '(none)'
 			};
 
 			Batch.post(batch).$promise.then(
 				function (data){
-					vm.batches.push(data);
+
 				}, function (error) { });
 		}
 	}

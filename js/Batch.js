@@ -11,7 +11,19 @@
 			{ batch_id: '@id' },
 			{ 	get: {
 					method: 'GET',
-					isArray: true
+					isArray: true,
+					transformResponse: function (data, headersGetter) {
+						var dataArr = JSON.parse(data);
+
+						return dataArr.sort(function (a, b) {
+							if (a.Batch_ID < b.Batch_ID)
+								return 1;
+							if (a.Batch_ID > b.Batch_ID)
+								return -1;
+
+							return 0;
+						});
+					}
 				},
 				post: {
 					method: 'POST',

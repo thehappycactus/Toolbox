@@ -64,7 +64,7 @@
 			<div class="panel-group" id="accordion" role="tablist">
 
 				<!-- Begin Panels -->
-				<div class="panel panel-default" ng-repeat="batch in mc.batches">
+				<div class="panel panel-default" ng-repeat="batch in mc.batches | orderBy: '-Batch_ID'">
 					<div class="panel-heading" role="tab" id="heading{{batch.Batch_ID}}">
 						<a role="button" data-toggle="collapse" data-parent="#accordion" href="matrix/#collapse{{batch.Batch_ID}}" aria-expanded="false" aria-controls="collapse{{batch.Batch_ID}}">
 							<h4 class="panel-title">{{batch.Date}} - {{batch.Test_Component}}</h4>
@@ -86,18 +86,25 @@
 										<dd id="editDate" class="hidden"><input type="date" class="form-control" value="batch.Date"></dd>
 									</dl>
 								</div>
-								<div class="col-md-4">
+								<div class="col-md-3">
 									<dl>
 										<dt>Test Component</dt>
 										<dd id="displayDescription">{{batch.Test_Component}}</dd>
 										<dd id="editDescription" class="hidden"><input type="text" class="form-control" ng-model="batch.Test_Component"></dd>
 									</dl>
 								</div>
-								<div class="col-md-5">
+								<div class="col-md-3">
 									<dl>
-										<dt>Notes</dt>
+										<dt>Description</dt>
 										<dd id="displayNotes">{{batch.Description}}</dd>
 										<dd id="editNotes" class="hidden"><input type="text" class="form-control" ng-model="batch.Description"></dd>
+									</dl>
+								</div>
+								<div class="col-md-3">
+									<dl>
+										<dt>Notes</dt>
+										<dd id="displayNotes">{{batch.Notes}}</dd>
+										<dd id="editNotes" class="hidden"><input type="text" class="form-control" ng-model="batch.Notes"></dd>
 									</dl>
 								</div>
 							</div>
@@ -106,9 +113,9 @@
 									<th>A/B/n</th>
 									<th>Description</th>
 									<th>Sent #</th>
-									<th>Opens</th>
-									<th>CTs</th>
-									<th>Bounces</th>
+									<th>Open %</th>
+									<th>CT %</th>
+									<th>Bounce %</th>
 								</tr>
 								<tr ng-repeat="test in batch.Tests">
 									<td>{{test.ABN}}</td>
